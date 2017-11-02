@@ -5,6 +5,7 @@ import guru.springframework.recipeproject.recipes.model.*;
 import guru.springframework.recipeproject.recipes.repositories.CategoryRepository;
 import guru.springframework.recipeproject.recipes.repositories.RecipeRepository;
 import guru.springframework.recipeproject.recipes.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @Component
 @Profile("dev")
+@Slf4j
 public class DevRecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final CategoryRepository categoryRepository;
@@ -33,6 +35,7 @@ public class DevRecipeBootstrap implements ApplicationListener<ContextRefreshedE
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         List<Recipe> recipes = getRecipes();
         recipeRepository.saveAll(recipes);
+        log.debug("Bootstrap: All recipes saved.");
     }
 
     public List<Recipe> getRecipes(){
@@ -60,16 +63,15 @@ public class DevRecipeBootstrap implements ApplicationListener<ContextRefreshedE
 
         Notes guacNotes = new Notes();
         guacNotes.setRecipeNotes("Here are some notes.");
-        guacNotes.setRecipe(guacRecipe);
         guacRecipe.setNotes(guacNotes);
 
-        guacRecipe.getIngredients().add(new Ingredient("Ripe avocados", new BigDecimal(2), eachUom, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("Kosher salt", new BigDecimal(.5), teaSpoonUom, guacRecipe));
-        guacRecipe.getIngredients().add(new Ingredient("fresh lime juice or lemon juice", new BigDecimal(2), tableSpoonUom, guacRecipe));
+        guacRecipe.addIngredient(new Ingredient("Ripe avocados", new BigDecimal(2), eachUom));
+        guacRecipe.addIngredient(new Ingredient("Kosher salt", new BigDecimal(.5), teaSpoonUom));
+        guacRecipe.addIngredient(new Ingredient("fresh lime juice or lemon juice", new BigDecimal(2), tableSpoonUom));
         //more go in here
 
-        guacRecipe.getCategories().add(americanCategory);
-        guacRecipe.getCategories().add(mexicanCategory);
+        guacRecipe.addCategory(americanCategory);
+        guacRecipe.addCategory(mexicanCategory);
 
         recipes.add(guacRecipe);
 
@@ -83,15 +85,14 @@ public class DevRecipeBootstrap implements ApplicationListener<ContextRefreshedE
 
         Notes tacoNotes = new Notes();
         tacoNotes.setRecipeNotes("Huge amount of text, no thanks.");
-        tacoNotes.setRecipe(tacoRecipe);
         tacoRecipe.setNotes(tacoNotes);
 
-        tacoRecipe.getIngredients().add(new Ingredient("Ancho Chilli Powder", new BigDecimal(2), tableSpoonUom, tacoRecipe));
-        tacoRecipe.getIngredients().add(new Ingredient("Dried Oregano", new BigDecimal(1), teaSpoonUom, tacoRecipe));
-        tacoRecipe.getIngredients().add(new Ingredient("Dried Cumin", new BigDecimal(1), teaSpoonUom, tacoRecipe));
-        tacoRecipe.getIngredients().add(new Ingredient("Sugar", new BigDecimal(1), teaSpoonUom, tacoRecipe));
+        tacoRecipe.addIngredient(new Ingredient("Ancho Chilli Powder", new BigDecimal(2), tableSpoonUom));
+        tacoRecipe.addIngredient(new Ingredient("Dried Oregano", new BigDecimal(1), teaSpoonUom));
+        tacoRecipe.addIngredient(new Ingredient("Dried Cumin", new BigDecimal(1), teaSpoonUom));
+        tacoRecipe.addIngredient(new Ingredient("Sugar", new BigDecimal(1), teaSpoonUom));
 
-        tacoRecipe.getCategories().add(mexicanCategory);
+        tacoRecipe.addCategory(mexicanCategory);
 
         recipes.add(tacoRecipe);
 
