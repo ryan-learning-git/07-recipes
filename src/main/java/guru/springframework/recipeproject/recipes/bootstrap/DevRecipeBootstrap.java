@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class DevRecipeBootstrap implements ApplicationListener<ContextRefreshedE
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         List<Recipe> recipes = getRecipes();
         recipeRepository.saveAll(recipes);
