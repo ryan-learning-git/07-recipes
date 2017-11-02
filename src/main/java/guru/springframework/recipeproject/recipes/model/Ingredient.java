@@ -19,6 +19,18 @@ public class Ingredient {
     @ManyToOne //no cascade - don't want a delete operation cascading to the parent object
     private Recipe recipe;
 
+    //if we have a non-empty constructor then we need to also have an empty one
+    public Ingredient() {
+    }
+
+    //helper constructor
+    public Ingredient(String description, BigDecimal amount, UnitOfMeasure unitOfMeasure, Recipe recipe) {
+        this.description = description;
+        this.amount = amount;
+        this.uom = unitOfMeasure;
+        this.recipe = recipe;
+    }
+
     public Long getId() {
         return id;
     }

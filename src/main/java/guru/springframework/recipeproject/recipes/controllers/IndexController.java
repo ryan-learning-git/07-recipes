@@ -1,25 +1,27 @@
 package guru.springframework.recipeproject.recipes.controllers;
 
 import guru.springframework.recipeproject.recipes.model.Recipe;
-import guru.springframework.recipeproject.recipes.services.RecipeListService;
+import guru.springframework.recipeproject.recipes.services.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Set;
 
 
 @Controller
 public class IndexController {
 
-    private RecipeListService recipeListService;
+    private final RecipeService recipeListService;
 
-    public IndexController(RecipeListService recipeListService){
+    public IndexController(RecipeService recipeListService){
         this.recipeListService = recipeListService;
     }
 
     @RequestMapping({"", "/", "/index"})
     public String getIndexPage(Model model){
 
-        Iterable<Recipe> recipeList = recipeListService.findAllRecipes();
+        Set<Recipe> recipeList = recipeListService.findAllRecipes();
         model.addAttribute("recipes", recipeList);
 
         return "index";
