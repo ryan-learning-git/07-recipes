@@ -14,18 +14,22 @@ import java.util.Set;
 @Slf4j
 public class IndexController {
 
-    private final RecipeService recipeListService;
+    private final RecipeService recipeService;
 
     public IndexController(RecipeService recipeListService){
-        this.recipeListService = recipeListService;
+        this.recipeService = recipeListService;
     }
 
     @RequestMapping({"", "/", "/index"})
     public String getIndexPage(Model model){
         log.debug("Start getIndexPage");
-        Set<Recipe> recipeList = recipeListService.findAllRecipes();
+        System.out.println("Start indexpage");
+        Set<Recipe> recipeList = recipeService.findAllRecipes();
         model.addAttribute("recipes", recipeList);
         log.debug("End getIndexPage");
+        System.out.println("Model is " + model);
+        System.out.println("RecipeService is " + recipeService);
+        System.out.println("End indexpage with recipeList " + recipeList);
         return "index";
     }
 
