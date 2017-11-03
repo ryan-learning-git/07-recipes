@@ -2,12 +2,14 @@ package guru.springframework.recipeproject.recipes.model;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Data
 @EqualsAndHashCode(exclude = {"recipe"})
+@ToString(exclude = {"uom", "recipe"})
 @Entity
 public class Ingredient {
 
