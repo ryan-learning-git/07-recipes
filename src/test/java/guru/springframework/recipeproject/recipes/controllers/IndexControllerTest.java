@@ -12,8 +12,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anySet;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class IndexControllerTest {
@@ -36,11 +37,11 @@ public class IndexControllerTest {
     @Test
     public void getIndexPage() {
         Set<Recipe> recipeSet = new HashSet<>();
-        when(recipeService.findAllRecipes()).thenReturn(recipeSet);
+        String expectedViewName = "index";
+        String viewName = controller.getIndexPage(model);
+        assertEquals(expectedViewName, viewName);
         verify(recipeService, times(1)).findAllRecipes();
-        verify(model, times(1)).addAttribute(recipeSet);
-        String response = controller.getIndexPage(model);
-        assertEquals("index", response);
+        verify(model, times(1)).addAttribute(eq("recipes"), anySet());
     }//getIndexPage
 
 }//class
