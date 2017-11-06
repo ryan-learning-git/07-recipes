@@ -14,6 +14,7 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     public RecipeController(RecipeService recipeService) {
+        log.debug("Setting up RecipeController bean.");
         this.recipeService = recipeService;
     }
 
@@ -36,7 +37,7 @@ public class RecipeController {
     @GetMapping
     @RequestMapping("recipe/{id}/update")
     public String updateById(@PathVariable String id, Model model){
-        model.addAttribute("recipe", recipeService.findByIdCommand(new Long(id)));
+        model.addAttribute("recipe", recipeService.findCommandById(new Long(id)));
         return "recipe/recipeform";
     }
 

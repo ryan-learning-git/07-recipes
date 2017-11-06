@@ -17,6 +17,7 @@ public class IndexController {
     private final RecipeService recipeService;
 
     public IndexController(RecipeService recipeListService){
+        log.debug("Setting up IndexController bean.");
         this.recipeService = recipeListService;
     }
 
