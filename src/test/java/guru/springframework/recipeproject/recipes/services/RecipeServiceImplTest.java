@@ -2,6 +2,7 @@ package guru.springframework.recipeproject.recipes.services;
 
 import guru.springframework.recipeproject.recipes.converters.RecipeCommandToRecipe;
 import guru.springframework.recipeproject.recipes.converters.RecipeToRecipeCommand;
+import guru.springframework.recipeproject.recipes.exceptions.NotFoundException;
 import guru.springframework.recipeproject.recipes.model.Recipe;
 import guru.springframework.recipeproject.recipes.repositories.RecipeRepository;
 import org.junit.Before;
@@ -77,4 +78,14 @@ public class RecipeServiceImplTest {
 
         verify(recipeRepository, times(1)).deleteById(anyLong());
     }
+
+    @Test(expected = NotFoundException.class)
+    public void getRecipeByIdTestNotFound() throws Exception {
+        Optional<Recipe> recipeOptional = Optional.empty();
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        Recipe recipeReturned = recipeService.findById(1L);
+    }
+
 }
