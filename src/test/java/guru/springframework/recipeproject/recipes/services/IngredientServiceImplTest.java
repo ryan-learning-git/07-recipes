@@ -1,11 +1,14 @@
 package guru.springframework.recipeproject.recipes.services;
 
 import guru.springframework.recipeproject.recipes.commands.IngredientCommand;
+import guru.springframework.recipeproject.recipes.converters.IngredientCommandToIngredient;
 import guru.springframework.recipeproject.recipes.converters.IngredientToIngredientCommand;
+import guru.springframework.recipeproject.recipes.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import guru.springframework.recipeproject.recipes.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import guru.springframework.recipeproject.recipes.model.Ingredient;
 import guru.springframework.recipeproject.recipes.model.Recipe;
 import guru.springframework.recipeproject.recipes.repositories.RecipeRepository;
+import guru.springframework.recipeproject.recipes.repositories.UnitOfMeasureRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -24,15 +27,22 @@ public class IngredientServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    UnitOfMeasureRepository unitOfMeasureRepository;
+
+
     IngredientToIngredientCommand ingredientToIngredientCommand;
+    IngredientCommandToIngredient ingredientCommandToIngredient;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
         UnitOfMeasureToUnitOfMeasureCommand uomConverter = new UnitOfMeasureToUnitOfMeasureCommand();
+        UnitOfMeasureCommandToUnitOfMeasure uomConverterBack = new UnitOfMeasureCommandToUnitOfMeasure();
         ingredientToIngredientCommand = new IngredientToIngredientCommand(uomConverter);
-        ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, recipeRepository);
+        ingredientCommandToIngredient = new IngredientCommandToIngredient(uomConverterBack);
+        ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient, recipeRepository, unitOfMeasureRepository);
     }
 
     @Test

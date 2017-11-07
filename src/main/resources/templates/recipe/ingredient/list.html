@@ -38,10 +38,14 @@
 
                         <div class="table-responsive" th:if="${not #lists.isEmpty(recipe.ingredients)}">
                             <a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/show'}">Back To Recipe</a>
+                            |
+                            <a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/new'}">Add ingredient</a>
+
                             <table class="table table-hover">
                                 <thead class="thead-inverse">
                                     <tr>
                                         <th>ID</th>
+                                        <th>Amount</th>
                                         <th>Description</th>
                                         <th>View</th>
                                         <th>Update</th>
@@ -52,6 +56,7 @@
 
                                     <tr th:remove="all">
                                         <td>123</td>
+                                        <td>3</td>
                                         <td>Tasty goodness 1</td>
                                         <td><a href="#">View</a></td>
                                         <td><a href="#">Update</a></td>
@@ -59,7 +64,9 @@
                                     </tr>
 
                                     <tr th:each="ingredient : ${recipe.ingredients}">
+                                        <!--/*@thymesVar id="ingredient" type="guru.springframework.recipeproject.recipes.commands.IngredientCommand"*/-->
                                         <td th:text="${ingredient.id}">123</td>
+                                        <td th:text="${ingredient.amount} + ' ' +${ingredient.uom.description}">123</td>
                                         <td th:text="${ingredient.description}">Tasty goodness 2</td>
                                         <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/show'}">View</a></td>
                                         <td><a href="#" th:href="@{'/recipe/' + ${recipe.id} + '/ingredient/' + ${ingredient.id} + '/update'}">Update</a></td>
