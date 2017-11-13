@@ -38,7 +38,7 @@
                             <div class="row">
                                 <div class="col-md-3 form-group"  th:class="${#fields.hasErrors('description')}
                                 ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <label>Recipe Description:</label>
+                                    <label th:text="#{recipe.description(${recipe.description})}">Recipe Description:</label>
                                     <input type="text" class="form-control" th:field="*{description}"/>
                                     <span class="help-block" th:if="${#fields.hasErrors('description')}">
                                         <ul>
@@ -49,7 +49,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3 form-group">
-                                    <label>Categories:</label>
+                                    <label th:text="#{recipe.categories}">Categories:</label>
                                 </div>
                                 <div class="col-md-9 form-group">
                                     <div class="radio">
@@ -69,7 +69,7 @@
                             <div class="row">
                                 <div class="col-md-3 form-group" th:class="${#fields.hasErrors('prepTime')}
                                 ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <label>Prep Time:</label>
+                                    <label th:text="#{recipe.preptime}">Prep Time:</label>
                                     <input type="number" class="form-control" th:field="*{prepTime}"/>
                                     <span class="help-block" th:if="${#fields.hasErrors('prepTime')}">
                                         <ul>

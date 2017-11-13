@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-@Profile("dev")
+@Profile("default")
 @Slf4j
 public class DevRecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -35,9 +35,10 @@ public class DevRecipeBootstrap implements ApplicationListener<ContextRefreshedE
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
+        log.debug("Bootstrap: Setting up recipes (H2 version).");
         List<Recipe> recipes = getRecipes();
         recipeRepository.saveAll(recipes);
-        log.debug("Bootstrap: All recipes saved.");
+        log.debug("Bootstrap: All recipes saved (H2 version).");
     }
 
     public List<Recipe> getRecipes(){

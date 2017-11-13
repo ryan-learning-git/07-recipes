@@ -85,6 +85,12 @@
             <version>4.10.2</version>
         </dependency>
 
+		<!-- MySQL Driver -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
 
 		<!-- Tests -->
 		<dependency>
